@@ -1,0 +1,20 @@
+<!--
+  Claude-written fixture, not a captured page.
+
+  A Public Storage market listing page embeds one schema.org SelfStorage
+  block per store; the store page's URL is the @id minus its fragment. The
+  parser must collect each store URL once, ignore non-store items, and skip
+  @ids that do not point at a store page.
+-->
+<!doctype html>
+<html>
+  <head>
+    <title>Self Storage Units in Charlotte, NC | Public Storage</title>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SelfStorage","@id":"https://www.publicstorage.com/self-storage-nc-charlotte/2334.html#store","name":"Public Storage","address":{"@type":"PostalAddress","addressLocality":"Charlotte","addressRegion":"NC","postalCode":"28206","streetAddress":"1001 N Tryon St"},"geo":{"@type":"GeoCoordinates","latitude":35.23509,"longitude":-80.83288}},{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.publicstorage.com/#website","url":"https://www.publicstorage.com/","name":"Public Storage"}]</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SelfStorage","@id":"https://www.publicstorage.com/self-storage-nc-charlotte/1796.html#store","name":"Public Storage","address":{"@type":"PostalAddress","addressLocality":"Charlotte","addressRegion":"NC","postalCode":"28216","streetAddress":"3620 N Tryon St"},"geo":{"@type":"GeoCoordinates","latitude":35.25311,"longitude":-80.80764}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SelfStorage","@id":"https://www.publicstorage.com/self-storage-nc-charlotte/2334.html#store","name":"Public Storage duplicate entry that must be collected only once"}</script>
+  </head>
+  <body>
+    <div id="results"></div>
+  </body>
+</html>

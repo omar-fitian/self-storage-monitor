@@ -1,0 +1,12 @@
+name: self-storage-monitor-dashboard
+title: self-storage-monitor-dashboard
+username: omar-fitian
+account: omar-fitian
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17794401
+bundleId: 12490218
+url: https://omar-fitian.shinyapps.io/self-storage-monitor-dashboard/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+.Python
+env/
+venv/
+ENV/
+.venv/
+.pytest_cache/
+
+# R
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user
+
+# Scratch HTML (e.g. pages saved while debugging a parser). Only the small
+# hand-written test fixtures are tracked.
+*.html
+!tests/fixtures/*.html
+
+# Secrets
+config.ini
+.env
+*.key
+
+# Logs
+*.log
+logs/
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local tooling
+.claude/

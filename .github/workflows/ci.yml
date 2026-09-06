@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest
+
+      - name: Run tests
+        run: python -m pytest -v
+
+  dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::shiny
+            any::shinydashboard
+            any::dplyr
+            any::tidyr
+            any::readr
+            any::DT
+            any::leaflet
+            any::plotly
+
+      - name: Check the app parses and the data loads
+        working-directory: dashboard
+        run: |
+          Rscript -e '
+            source("app.R")
+            units <- load_units()
+            stopifnot(
+              nrow(units) > 0,
+              inherits(units$date, "Date"),
+              all(is.na(units$area_sqft) | units$area_sqft > 0),
+              all(units$is_parking[is.na(units$area_sqft)]),
+              is.function(server), !is.null(ui)
+            )
+            cat("Dashboard loads:", nrow(units), "units across",
+                length(unique(units$date)), "capture dates\n")
+          '

@@ -1,0 +1,61 @@
+name: Daily scrape
+
+on:
+  schedule:
+    - cron: "0 11 * * *"   # 7am in Charlotte on daylight time, 6am on standard
+  workflow_dispatch:
+
+# Lets the built-in GITHUB_TOKEN push the day's rows back. No personal token.
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Scrape
+        id: scrape
+        run: python -m scraper
+
+      # Runs even when the scrape exited non-zero, which is exactly when the
+      # dropped records are worth reading.
+      - name: Publish the dropped records
+        if: always()
+        run: |
+          echo '### Dropped records' >> "$GITHUB_STEP_SUMMARY"
+          if [ -s rejects.log ]; then
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            cat rejects.log >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'None.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Keep the reject log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rejects-${{ github.run_id }}
+          path: rejects.log
+          if-no-files-found: ignore
+          retention-days: 90
+
+      # One chain failing exits non-zero but still writes the other chain's
+      # rows, and those are worth keeping.
+      - name: Commit the day's rows
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboard/data/units.csv
+          git diff --staged --quiet || git commit -m "Add $(date -u +%Y-%m-%d) prices"
+          git push

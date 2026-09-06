@@ -1,0 +1,70 @@
+<!--
+  Claude-written fixture, not a captured page.
+
+  A CubeSmart facility page lists every unit twice, and the parser has to join
+  the two halves on the unit's SKU:
+
+  - as JSON-LD Products inside an @graph ItemList, which carry exact
+    dimensions ("5'x5'x8'") but NO price;
+  - as rendered <li> cards, which carry data-unitprice and CubeSmart's own
+    size label (data-tab-group) but not the dimensions.
+
+  The shapes that matter are reproduced here:
+
+  - a half-height unit ("5'x5'x4'") -- height is captured, not discarded;
+  - a fractional dimension ("10'x7.5'x8'") that CubeSmart itself labels
+    "Small" at 75 sq ft, which is larger than Public Storage's entire Small
+    band; this is the case proving chain labels are not comparable;
+  - a reversed footprint ("10'x5'x8'") that must normalise to 5x10;
+  - a card whose SKU has no JSON-LD entry, which must be skipped rather than
+    take a neighbouring unit's dimensions;
+  - a parking unit CubeSmart labels itself;
+  - an RV space named only "40" -- CubeSmart measures outdoor parking by
+    length in feet, with no width, so it is stored with a length and no area;
+  - two printed prices per card. data-unitprice is rounded to whole dollars
+    ("29" for a $28.80 unit), so the parser reads the printed figures: the
+    promotional online rate and the walk-in rate it discounts. The dagger is
+    CubeSmart's footnote marker and sits between the amount and "/mo.";
+  - a wine locker, which carries data-unitprice but prints no price block at
+    all. Reading only the printed figures silently dropped six of these, so
+    the attribute is kept as a fallback -- rounded, and with no walk-in rate
+    to pair with, but a real unit rather than a lost one.
+-->
+<!doctype html>
+<html>
+  <head>
+    <title>Self Storage Units at 1451 Bryant St | CubeSmart</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SelfStorage","name":"CubeSmart of 1451 Bryant St Charlotte","priceRange":"$-$$$"},{"@context":"https://schema.org","@type":"ItemList","numberOfItems":7,"itemListElement":[{"@type":"ListItem","position":"0","item":{"@type":"Product","name":"5'x5'x8'","sku":"aaaaaaaa-0000-0000-0000-000000000001"}},{"@type":"ListItem","position":"1","item":{"@type":"Product","name":"5'x5'x4'","sku":"aaaaaaaa-0000-0000-0000-000000000002"}},{"@type":"ListItem","position":"2","item":{"@type":"Product","name":"10'x5'x8'","sku":"aaaaaaaa-0000-0000-0000-000000000003"}},{"@type":"ListItem","position":"3","item":{"@type":"Product","name":"10'x7.5'x8'","sku":"aaaaaaaa-0000-0000-0000-000000000004"}},{"@type":"ListItem","position":"4","item":{"@type":"Product","name":"10x20","sku":"aaaaaaaa-0000-0000-0000-000000000005"}},{"@type":"ListItem","position":"5","item":{"@type":"Product","name":"40","sku":"aaaaaaaa-0000-0000-0000-000000000006"}},{"@type":"ListItem","position":"6","item":{"@type":"Product","name":"2'x3'x4'","sku":"aaaaaaaa-0000-0000-0000-000000000007"}}]}]}</script>
+  </head>
+  <body>
+    <div class="unit-size-list" id="facility-unit-list">
+      <ul class="csStorageSizeDimension">
+        <li class="csStorageSizeDimension" id="aaaaaaaa-0000-0000-0000-000000000001" ordinal="">
+          <div data-group="panelitem" data-unitprice="29" data-tab-group="Small" class="row csUnitFacilityListing" data-price="$29"></div>
+        <div class="cs-price">$28.80 <sup>&dagger;</sup> /mo. <span>online</span> price $48.00 <span>in store</span> price</div></li>
+        <li class="csStorageSizeDimension" id="aaaaaaaa-0000-0000-0000-000000000002" ordinal="">
+          <div data-group="panelitem" data-unitprice="24" data-tab-group="Small" class="row csUnitFacilityListing" data-price="$24"></div>
+        <div class="cs-price">$24.00 <sup>&dagger;</sup> /mo. <span>online</span> price $40.00 <span>in store</span> price</div></li>
+        <li class="csStorageSizeDimension" id="aaaaaaaa-0000-0000-0000-000000000003" ordinal="">
+          <div data-group="panelitem" data-unitprice="60" data-tab-group="Small" class="row csUnitFacilityListing" data-price="$60"></div>
+        <div class="cs-price">$60.00 <sup>&dagger;</sup> /mo. <span>online</span> price $100.00 <span>in store</span> price</div></li>
+        <li class="csStorageSizeDimension" id="aaaaaaaa-0000-0000-0000-000000000004" ordinal="">
+          <div data-group="panelitem" data-unitprice="65" data-tab-group="Small" class="row csUnitFacilityListing" data-price="$65"></div>
+        <div class="cs-price">$65.40 <sup>&dagger;</sup> /mo. <span>online</span> price $109.00 <span>in store</span> price</div></li>
+        <li class="csStorageSizeDimension" id="aaaaaaaa-0000-0000-0000-000000000005" ordinal="">
+          <div data-group="panelitem" data-unitprice="79" data-tab-group="Parking" class="row csUnitFacilityListing" data-price="$79"></div>
+        <div class="cs-price">$79.20 <sup>&dagger;</sup> /mo. <span>online</span> price $132.00 <span>in store</span> price</div></li>
+        <li class="csStorageSizeDimension" id="aaaaaaaa-0000-0000-0000-000000000006" ordinal="">
+          <div data-group="panelitem" data-unitprice="77" data-tab-group="Parking" class="row csUnitFacilityListing" data-price="$77"></div>
+        <div class="cs-price">$77.00 <sup>&dagger;</sup> /mo. <span>online</span> price $128.00 <span>in store</span> price</div></li>
+        <li class="csStorageSizeDimension" id="aaaaaaaa-0000-0000-0000-000000000007" ordinal="">
+          <div data-group="panelitem" data-unitprice="43" data-tab-group="Small" class="row csUnitFacilityListing" data-price="$43"></div>
+          <div class="cs-desc">Wine Storage with: 24 cubic feet, fits approximately 6-12 cases</div>
+        </li>
+        <li class="csStorageSizeDimension" id="bbbbbbbb-9999-9999-9999-999999999999" ordinal="">
+          <div data-group="panelitem" data-unitprice="999" data-tab-group="Large" class="row csUnitFacilityListing" data-price="$999"></div><div class="cs-price">$999.00 <sup>&dagger;</sup> /mo. <span>online</span> price $1665.00 <span>in store</span> price</div>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

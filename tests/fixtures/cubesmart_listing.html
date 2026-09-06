@@ -1,0 +1,47 @@
+<!--
+  Claude-written fixture, not a captured page.
+
+  CubeSmart renders its results map by pushing one object per facility onto a
+  markerData array. Each push carries the facility's coordinates and a popup
+  whose <h3> holds the address and whose links point at the facility's own
+  page -- which is where the priced units live (see cubesmart_facility.html).
+
+  The second marker is deliberately malformed: it has coordinates but no
+  address popup, and must be skipped rather than allowed to borrow the third
+  marker's address.
+-->
+<!doctype html>
+<html>
+  <head><title>Charlotte Self Storage | CubeSmart</title></head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var markerData = [];
+      markerData.push({
+        position: { lat: 35.22733, lng: -80.86679 },
+        content: '<div class="popup-marker-info"><div class="mapAddress"><a href="/north-carolina-self-storage/charlotte-self-storage/4144.html"><h3>1451 Bryant St<br/>Charlotte, NC 28208</h3></a></div><div class="cs-gmap-button-wrapper"><a href="/north-carolina-self-storage/charlotte-self-storage/4144.html" class="red-button">See All Units</a></div></div>',
+        disableAutoPan: true,
+        facility: 4144,
+        small: 28.8,
+        medium: 81,
+        large: 0,
+        vehicle: 79.2
+      });
+      markerData.push({
+        position: { lat: 35.19999, lng: -80.85555 },
+        disableAutoPan: true,
+        facility: 9999
+      });
+      markerData.push({
+        position: { lat: 35.20440, lng: -80.86998 },
+        content: '<div class="popup-marker-info"><div class="mapAddress"><a href="/north-carolina-self-storage/charlotte-self-storage/4428.html"><h3>2701 S Tryon St<br/>Charlotte, NC 28203</h3></a></div></div>',
+        disableAutoPan: true,
+        facility: 4428,
+        small: 29,
+        medium: 80,
+        large: 154,
+        vehicle: 0
+      });
+    </script>
+  </body>
+</html>

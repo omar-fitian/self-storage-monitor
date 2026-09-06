@@ -1,0 +1,57 @@
+<!--
+  Claude-written fixture, not a captured page.
+
+  A Public Storage store page describes each unit twice, and the two versions
+  disagree. The schema.org block is used only for the store's address and
+  coordinates; sizes and prices come from the rendered unit cards.
+
+  The disagreement is reproduced here, because it is the reason the parser
+  reads the cards:
+
+  - V_1577824 is priced "$29 - $43" in the JSON-LD, but the card shows an
+    in-store rate of $36 and an online-only price of $22. The JSON-LD band is
+    the in-store rate plus or minus 20%, so its low end is a number no
+    customer is ever quoted;
+  - V_1518027 is named "Parking" with no dimensions in the JSON-LD, while its
+    card gives a real 10x20 footprint. It is a vehicle space that is not also
+    a storage unit, so it is the one card here categorised as parking;
+  - V_583663 is named "10x30" in the JSON-LD and rendered as 30x30 -- a
+    900 sq ft unit the structured data would have recorded as 300;
+  - the last <li> carries no data-unitid and must be ignored rather than
+    treated as a unit.
+-->
+<!doctype html>
+<html>
+  <head>
+    <title>Self Storage Units at 5748 N Tryon Street | Public Storage</title>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"SelfStorage","@id":"https://www.publicstorage.com/self-storage-nc-charlotte/1164.html#store","name":"Public Storage","address":{"@type":"PostalAddress","addressCountry":"US","addressLocality":"Charlotte","addressRegion":"NC","postalCode":"28213","streetAddress":"5748 N Tryon Street"},"geo":{"@type":"GeoCoordinates","latitude":35.28749,"longitude":-80.77816},"makesOffer":[{"@type":"Offer","price":"$29 - $43","priceCurrency":"USD","itemOffered":{"@type":"Product","name":"5x5","sku":"V_1577824","description":"5x5 Ground Floor, Inside Unit (Prices are not guaranteed)"}},{"@type":"Offer","price":"$93 - $139","priceCurrency":"USD","itemOffered":{"@type":"Product","name":"Parking","sku":"V_1518027","description":"Parking Outside Unit, Uncovered, Vehicle Parking (Prices are not guaranteed)"}},{"@type":"Offer","price":"$335 - $503","priceCurrency":"USD","itemOffered":{"@type":"Product","name":"10x30","sku":"V_583663","description":"10x30 Outside Unit, Boat or Vehicle (Prices are not guaranteed)"}}]},{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.publicstorage.com/self-storage-nc-charlotte/1164.html#website","url":"https://www.publicstorage.com/self-storage-nc-charlotte/1164.html","name":"Public Storage"}]</script>
+  </head>
+  <body>
+    <ul class="unit-list">
+      <li class="list-group-item mobile-unit-list-item unit-list-item detail IsSmall IsStorageUnit" data-unitid="V_1577824" id="unit-V_1577824" data-unitsize="Has5x5">
+        <div class="size"><div class="unitSizeText">Unit Size</div> 5'x5'</div>
+        <div class="online-price"><span>Online price</span> <span>$ 22</span> /mo</div>
+        <div class="monthly-rent">Monthly Rent <span>In Store</span> $ 36
+          <span>Online-Only Price</span> $ 22 /mo + one-time $29 admin fee</div>
+      </li>
+
+      <li class="list-group-item mobile-unit-list-item unit-list-item detail IsLarge IsVehicleUnit IsDriveUpAccess Uncovered" data-unitid="V_1518027" id="unit-V_1518027" data-unitsize="Has10x20">
+        <div class="size"><div class="unitSizeText">Unit Size</div> 10'x20'</div>
+        <div class="online-price"><span>Online price</span> <span>$ 70</span> /mo</div>
+        <div class="monthly-rent">Monthly Rent <span>In Store</span> $ 116
+          <span>Online-Only Price</span> $ 70 /mo + one-time $29 admin fee</div>
+      </li>
+
+      <li class="list-group-item mobile-unit-list-item unit-list-item detail IsLarge IsStorageUnit IsVehicleUnit" data-unitid="V_583663" id="unit-V_583663" data-unitsize="Has30x30">
+        <div class="size"><div class="unitSizeText">Unit Size</div> 30'x30'</div>
+        <div class="online-price"><span>Online price</span> <span>$ 419</span> /mo</div>
+        <div class="monthly-rent">Monthly Rent <span>In Store</span> $ 559
+          <span>Online-Only Price</span> $ 419 /mo + one-time $29 admin fee</div>
+      </li>
+
+      <li class="list-group-item mobile-unit-list-item unit-list-item promo-tile">
+        <div class="promo">Labor Day 40% OFF 4 months</div>
+      </li>
+    </ul>
+  </body>
+</html>

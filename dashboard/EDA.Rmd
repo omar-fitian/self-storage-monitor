@@ -1,0 +1,52 @@
+---
+title: "EDA"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+read_csv("data/units.csv") -> units
+```
+
+```{r}
+units %>% 
+  count(height_ft)
+
+units %>% 
+  filter(height_ft == 10) %>% View()
+```
+
+```{r}
+units %>% 
+  group_by(source) %>% 
+  summarize(
+    mean_price = mean(price),
+    mean_regular_price = mean(regular_price, na.rm = TRUE),
+    median_price = median(price, na.rm = TRUE),
+    median_regular_price = median(regular_price, na.rm = TRUE)
+  )
+
+
+summary_fns <- list(
+  mean = \(x) mean(x, na.rm = TRUE),
+  median = \(x) median(x, na.rm = TRUE)
+  # sd = \(x) sd(x, na.rm = TRUE),
+  # IQR = \(x) IQR(x, na.rm = TRUE),
+  # min = \(x) min(x, na.rm = TRUE),
+  # max = \(x) max(x, na.rm = TRUE)
+)
+
+units %>% 
+  group_by(category, source) %>% 
+  summarize(
+  across(c(price, regular_price, area_sqft), summary_fns)
+  )
+```
+
+
+
