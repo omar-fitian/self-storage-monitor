@@ -15,8 +15,7 @@ ENV/
 .Ruserdata
 .Rproj.user
 
-# Scratch HTML (e.g. pages saved while debugging a parser). Only the small
-# hand-written test fixtures are tracked.
+# Scratch html
 *.html
 !tests/fixtures/*.html
 

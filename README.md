@@ -36,13 +36,14 @@ python -m scraper
 ```
 
 
-## Scraping stance
-
-Only chains that serve their pages to a plain HTTP request, on paths their
-`robots.txt` permits, are included.
-
 ## Future improvements
 - Market selection
 - Pricing forecast
 - Spatial data analysis
 - Price alerts
+
+
+<br>
+
+*Scraping stance: Only chains that serve their pages to a plain HTTP request, on paths their
+`robots.txt` permits, are included.*

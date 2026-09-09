@@ -1,8 +1,4 @@
-# A real HTML parser, so the scraper reads pages by structure rather than by
-# pattern-matching their markup. Everything else it uses is standard library.
+# Python dependencies for the scraper
 beautifulsoup4>=4.12
 lxml>=5.0
-
-# zoneinfo carries no IANA database of its own on Windows. Linux and macOS
-# ship one, so on the CI runner this installs nothing.
 tzdata>=2024.1; sys_platform == "win32"
