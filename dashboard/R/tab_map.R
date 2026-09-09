@@ -1,10 +1,3 @@
-# Facility map: the four headline numbers, and every facility placed and
-# coloured by what it charges per square foot.
-#
-# Layout and behaviour sit together so that one tab is one file to read. It is
-# the shape a Shiny module takes, without the namespacing a single instance of
-# each tab would not use.
-
 map_tab_ui <- function() {
   tabItem(
     tabName = "map",
@@ -59,14 +52,12 @@ map_tab_server <- function(output, snapshot, filtered) {
         cheapest = min(price),
         .groups = "drop"
       ) |>
-      # A facility renting only parking has no rate per square foot to plot.
       filter(!is.na(rate_sqft))
     validate(need(nrow(by_facility) > 0, "No units with a footprint match these filters."))
 
     palette <- colorNumeric("YlOrRd", domain = by_facility$rate_sqft)
 
     leaflet(by_facility) |>
-      # Plain OpenStreetMap tiles: no API key, no usage ceiling to trip over.
       addTiles() |>
       addCircleMarkers(
         lng = ~lng, lat = ~lat,

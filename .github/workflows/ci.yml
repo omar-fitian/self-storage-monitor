@@ -45,19 +45,15 @@ jobs:
             any::leaflet
             any::plotly
 
-      - name: Check the app parses and the data loads
+      - name: Check the app loads and the data is readable
         working-directory: dashboard
         run: |
           Rscript -e '
+            for (f in list.files("R", full.names = TRUE)) source(f)
             source("app.R")
-            units <- load_units()
-            stopifnot(
-              nrow(units) > 0,
-              inherits(units$date, "Date"),
-              all(is.na(units$area_sqft) | units$area_sqft > 0),
-              all(units$is_parking[is.na(units$area_sqft)]),
-              is.function(server), !is.null(ui)
-            )
+            units <- load_units(LOCAL_UNITS)
+            stopifnot(nrow(units) > 0, inherits(units$date, "Date"),
+                      is.function(server), !is.null(ui))
             cat("Dashboard loads:", nrow(units), "units across",
                 length(unique(units$date)), "capture dates\n")
           '

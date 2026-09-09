@@ -1,7 +1,3 @@
-# All units: every row behind the other two tabs, searchable.
-#
-# Layout and behaviour sit together so that one tab is one file to read.
-
 units_tab_ui <- function() {
   tabItem(
     tabName = "units",

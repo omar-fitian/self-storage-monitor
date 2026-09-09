@@ -1,9 +1,3 @@
-# The shell every tab sits in: header, the filters, the styling, and the slot
-# the staleness banner appears in.
-#
-# The tabs themselves are built by the tab_* files, so this stays a page you
-# can read top to bottom without knowing what any of them contain.
-
 dashboard_ui <- function() {
   dashboardPage(
     dashboardHeader(title = "Self-Storage Monitor"),

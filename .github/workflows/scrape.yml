@@ -2,10 +2,9 @@ name: Daily scrape
 
 on:
   schedule:
-    - cron: "0 11 * * *"   # 7am in Charlotte on daylight time, 6am on standard
+    - cron: "0 11 * * *"
   workflow_dispatch:
 
-# Lets the built-in GITHUB_TOKEN push the day's rows back. No personal token.
 permissions:
   contents: write
 

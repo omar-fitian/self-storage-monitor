@@ -1,11 +1,3 @@
-# Head to head: the comparison the project exists to make.
-#
-# Every view here is restricted to footprints both chains actually rent, so a
-# row compares like with like. The chains' own "small"/"medium"/"large" labels
-# are not comparable and are never used for this.
-#
-# Layout and behaviour sit together so that one tab is one file to read.
-
 compare_tab_ui <- function() {
   tabItem(
     tabName = "compare",
@@ -13,9 +5,6 @@ compare_tab_ui <- function() {
       box(
         title = "Same footprint, both chains", status = "primary",
         solidHeader = TRUE, width = 12,
-        p(class = "note",
-          "Only footprints both chains actually rent, so every row compares",
-          "like with like. Median of the advertised starting rates."),
         DT::dataTableOutput("head_to_head")
       )
     ),
@@ -34,9 +23,6 @@ compare_tab_ui <- function() {
   )
 }
 
-# footprints is every footprint in the unfiltered data, smallest first: the
-# comparison is ordered by the full catalogue rather than by whatever the
-# current filters happen to leave behind.
 compare_tab_server <- function(output, snapshot, filtered, footprints) {
 
   head_to_head <- reactive({
@@ -85,9 +71,6 @@ compare_tab_server <- function(output, snapshot, filtered, footprints) {
   })
 
   output$sqft_distribution <- renderPlotly({
-    # Restricted to the footprints both chains rent, matching the table above.
-    # Showing all ~36 footprints (down to 1x2 lockers) makes the axis unreadable
-    # and most of those sizes have only one chain in them anyway.
     comparable <- head_to_head()$unit_label
     data <- snapshot() |> filter(unit_label %in% comparable, !is.na(price_per_sqft))
     validate(need(nrow(data) > 0,
@@ -117,9 +100,7 @@ compare_tab_server <- function(output, snapshot, filtered, footprints) {
     plot_ly(daily, x = ~date, y = ~rate, color = ~chain,
             type = "scatter", mode = "lines+markers") |>
       layout(
-        # One tick per capture date. Without capping nticks, a log with a
-        # single date makes plotly zoom the axis down to microseconds around
-        # that one point and label it with meaningless sub-second times.
+
         xaxis = list(title = "", type = "date", tickformat = "%b %d",
                      nticks = max(1, min(n_distinct(daily$date), 8))),
         yaxis = list(title = "Median $ / sq ft", rangemode = "tozero"),
